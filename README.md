@@ -1,6 +1,7 @@
 # memriki-logic
 
-This projects is a collection of simulation scripts for electrical circuits based on memristive[^1] microfluidic ionic channels[^2]. Shinriki inspired osciallators [^3] are build and then connected together to form logic gates. These scripts are the basis for the paper [Neuromorphic Computing with Microfluidic Memristors]().
+This projects is a collection of simulation scripts for electrical circuits based on memristive[^1] microfluidic ionic channels[^2]. Shinriki inspired osciallators [^3] are build and then connected together to form logic gates. These scripts are the basis for the paper Neuromorphic Computing with Microfluidic Memristors.
+The accompaniying data can be found at [zenodo](https://doi.org/10.5281/zenodo.14924501).
 
 To reproduce the plots of the paper follow these instructions:
 
