@@ -57,7 +57,7 @@ function get_rect(is=1e-3)
 end
 
 function shinriki_circ(params)
-    shinriki_circ = @circuit begin
+    @circuit begin
         nr = qubic_conductance(-3, 1)
         c1 = capacitor(params["c1"])
         r1 = resistor(params["r1"])
@@ -77,6 +77,29 @@ function shinriki_circ(params)
 end
 function shinriki_element(params)
     composite_element(shinriki_circ(params), pinmap=Dict("in+" => (:nr, 1), "-" => (:co, 2), "out+" => (:nr, 2)))
+end
+
+function nomemriki_circ(params)
+    @circuit begin
+        nr = qubic_conductance(-3, 1)
+        c1 = capacitor(params["c1"])
+        r1 = resistor(params["r1"])
+
+        m = resistor(0.25)
+        mr = resistor(0.25)
+
+        co = capacitor(params["co"])
+        lo = inductor(params["lo"])
+        ro = resistor(params["ro"])
+
+        nr[2] == c1[1] == m[1] == mr[2] == r1[2]
+        m[2] == mr[1] == co[1] == lo[1]
+        lo[2] == ro[1]
+        co[2] == ro[2] == c1[2] == r1[1]
+    end
+end
+function nomemriki_element(params)
+    composite_element(nomemriki_circ(params), pinmap=Dict("in+" => (:nr, 1), "-" => (:co, 2), "out+" => (:nr, 2)))
 end
 
 function xor_circ(params)
