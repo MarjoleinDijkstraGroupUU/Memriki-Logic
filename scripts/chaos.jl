@@ -61,7 +61,11 @@ function phase_plot(fs, rs, recs; vmax=7, ax=nothing, kwargs...)
     if ax === nothing
         fig, ax = subplots()
     end
-    map = ax.imshow(length.(recs), origin="lower", extent=[log10.(extrema(rs))..., log10.(extrema(fs))...]; rasterized=true,vmin=0.5, vmax=vmax+0.5, kwargs...)
+    map = ax.imshow(length.(recs), origin="lower", extent=[log10.(extrema(rs))..., log10.(extrema(fs))...]; rasterized=true, vmin=0.5, vmax=vmax + 0.5, kwargs...)
+    statepoints = [Dict("f" => 120, "r1" => 0.425, "sym"=>"<", "color"=>"deeppink"), Dict("f" => 400, "r1" => 0.425, "sym"=>"^", "color"=>"tab:green"), Dict("f" => 400, "r1" => 1.0, "sym"=>">", "color"=>"tab:orange")]
+    for st in statepoints
+        ax.plot(log10(st["r1"]), log10(st["f"]), marker=st["sym"], color=st["color"])
+    end
     ax,map
 end
 
@@ -89,6 +93,7 @@ cmap = get_cmap("viridis",vmax)
 fig, axs = subplots(2, 1, figsize=(5, 7), layout="compressed", sharex=true, sharey=true)
 gmap = nothing
 for (ax, circ) in zip(axs, ["memriki", "nomemriki"])
+    params["circ"] = circ
     file = jldopen(datadir("chaos-sweeps", savename(params, "jld2")))
     _, map = phase_plot(fs, rs, file["recs"]; vmax, ax, cmap)
     global  gmap = map
@@ -100,3 +105,4 @@ for ax in axs
 end
 axs[end].set_xlabel(L"\mathrm{log}_{10}(R_1 g_0)")
 fig.colorbar(gmap; ticks=1:vmax+1, ax=axs, orientation="horizontal", location="top", aspect=40, extend="max", fraction=0.05,pad=0.005)
+fig.savefig(plotsdir("phase.pdf"), dpi=600)
