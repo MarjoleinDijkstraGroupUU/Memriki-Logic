@@ -79,7 +79,7 @@ for c in ["memriki", "nomemriki"]
     params["circ"] = c
     recs = fr2recs(params, fs, rs)
     @tagsave(
-        datadir("chaos-sweeps", savename(params, "jld2")),
+        datadir("chaos-sweeps", c * ".jld2"),
         @strdict fs rs params recs
     )
 end
@@ -94,7 +94,7 @@ fig, axs = subplots(2, 1, figsize=(5, 7), layout="compressed", sharex=true, shar
 gmap = nothing
 for (ax, circ) in zip(axs, ["memriki", "nomemriki"])
     params["circ"] = circ
-    file = jldopen(datadir("chaos-sweeps", savename(params, "jld2")))
+    file = jldopen(datadir("chaos-sweeps", circ * ".jld2"))
     _, map = phase_plot(fs, rs, file["recs"]; vmax, ax, cmap)
     global  gmap = map
 end

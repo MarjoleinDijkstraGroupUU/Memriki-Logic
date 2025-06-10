@@ -3,7 +3,9 @@
 [![DOI](https://zenodo.org/badge/938837445.svg)](https://doi.org/10.5281/zenodo.14944227)
 
 This projects is a collection of simulation scripts for electrical circuits based on memristive[^1] microfluidic ionic channels[^2]. Shinriki inspired osciallators [^3] are build and then connected together to form logic gates. These scripts are the basis for the paper Neuromorphic Computing with Microfluidic Memristors.
-The accompaniying data can be found at [zenodo](https://doi.org/10.5281/zenodo.14924501).
+The accompaniying data can be found at [zenodo](https://doi.org/10.5281/zenodo.14924500).
+
+A detailed discussion of these results can be found in our paper on [arxiv](https://arxiv.org/abs/2503.13386).
 
 To reproduce the plots of the paper follow these instructions:
 
@@ -35,6 +37,7 @@ which auto-activate the project and enable local path handling from DrWatson.
 
 The conductance-voltage and current-voltage plots of a single memristor can be reproduced by running `scripts/memristor.jl`.
 Plots showing the dynamics of the oscillator can be generated with `scripts/dynamics.jl`
+The data and the plots for the dynamical phase diagram can be generated with `scripts/chaos.jl`.
 The `NAND` and `XOR` gates can be reproduced by `scripts/nand-xor.jl`.
 The code for `AND` and `OR` gates assembled from `NAND` gates can be found in `scripts/combining-nands.jl`.
 To test the repeatability of the gates run `scripts/repeatability.jl`
